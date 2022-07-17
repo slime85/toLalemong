@@ -165,20 +165,20 @@ const musicAnimation = () => {
 
   const music = musicList[lastPlay];
 
-  // if(!music.music.paused) {
-  //   music.analyser.getByteFrequencyData(music.dataArray);
-  //   let x = Math.random() * (page.w + music.bufferLength * 2) - music.bufferLength;
-  //   let y = page.h + music.bufferLength / 10;
-  //   let avr = 0;
-  //   for (let i = 0; i < music.bufferLength; i++) {
-  //     avr += music.dataArray[i];
-  //   }
-  //   avr /= music.bufferLength;
-  //   if(avr > 7) {
-  //     let push = Math.round(Math.random() * (256 / avr));
-  //     if(push === 0) particleList.music.bubble.push({size: avr / 8, x: x, y: y, step: Math.random() * 360, alpha: 1});
-  //   }
-  // }
+  if(!music.music.paused) {
+    music.analyser.getByteFrequencyData(music.dataArray);
+    let x = Math.random() * (page.w + music.bufferLength * 2) - music.bufferLength;
+    let y = page.h + music.bufferLength / 10;
+    let avr = 0;
+    for (let i = 0; i < music.bufferLength; i++) {
+      avr += music.dataArray[i];
+    }
+    avr /= music.bufferLength;
+    if(avr > 7) {
+      let push = Math.round(Math.random() * (256 / avr));
+      if(push === 0) particleList.music.bubble.push({size: avr / 8, x: x, y: y, step: Math.random() * 360, alpha: 1});
+    }
+  }
   
   requestAnimationFrame(musicAnimation);
 }
