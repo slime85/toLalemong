@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>구경해볼래요?</title>
+  <link rel="stylesheet" href="src/style/reset.css">
+  <link rel="stylesheet" href="src/style/style.css">
+</head>
+<body>
+  <div id="intro-background"></div>
+  <canvas id="intro"></canvas>
+  <div id="wrap">
+    <div id="page1" class="page">
+      <img src="./image.jpg" style="width: 100%; height: 100%; position: absolute; object-fit: cover;">
+    </div>
+    <div id="page2" class="page">
+      <div id="img-background"></div>
+      <div id="pop-images"></div>
+      <div id="image-list" class="top-30">
+        <div class="image-line"></div>
+        <div class="image-line"></div>
+        <div class="image-line"></div>
+      </div>
+      <div id="image-scroll"><div class="bar"></div></div>
+    </div>
+    <div id="page3" class="page">
+      <canvas id="music"></canvas>
+    </div>
+  </div>
+  <script src="src/script/data.js"></script>
+  <script src="src/script/canvas.js"></script>
+  <script src="src/script/intro.js"></script>
+  <script src="src/script/image-list.js"></script>
+  <script src="src/script/music.js"></script>
+  <script src="src/script/script.js"></script>
+</body>
+</html>
