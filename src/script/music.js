@@ -9,17 +9,21 @@ let musicFrame = 0;
 let lastPlay = 0;
 
 const playMusic = music => {
-  music.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-  music.music.play();
-  music.audioSource = music.audioCtx.createMediaElementSource(music.music);
-  music.analyser = music.audioCtx.createAnalyser();
-  music.audioSource.connect(music.analyser);
-  music.analyser.connect(music.audioCtx.destination);
-
-  music.analyser.fftSize = 128;
-  music.bufferLength = music.analyser.frequencyBinCount;
-  music.dataArray = new Uint8Array(music.bufferLength);
+  if(music.audioCtx == null) {
+    music.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  
+    music.music.play();
+    music.audioSource = music.audioCtx.createMediaElementSource(music.music);
+    music.analyser = music.audioCtx.createAnalyser();
+    music.audioSource.connect(music.analyser);
+    music.analyser.connect(music.audioCtx.destination);
+  
+    music.analyser.fftSize = 128;
+    music.bufferLength = music.analyser.frequencyBinCount;
+    music.dataArray = new Uint8Array(music.bufferLength);
+  }else {
+    music.music.play();
+  }
 }
 
 const musicAnimation = () => {
@@ -56,6 +60,9 @@ const musicAnimation = () => {
   if(musicCanvas.x > max) musicCanvas.x = max;
 
   const selMusic = musicList[lastPlay];
+  const barLists = [[], [], []];
+  const barList = [];
+  const removeList = [];
 
   if(!selMusic.music.paused) {
     selMusic.analyser.getByteFrequencyData(selMusic.dataArray);
@@ -64,6 +71,15 @@ const musicAnimation = () => {
     let avr = 0;
     for (let i = 0; i < selMusic.bufferLength; i++) {
       avr += selMusic.dataArray[i];
+
+      for(let j = 0; j < 3; j++) {
+        if(i <= Math.floor(selMusic.dataArray.length / 3) * (j + 1)) {
+          barLists[j].push(selMusic.dataArray[i]);
+        }
+      }
+    }
+    for (let i = 0; i < selMusic.bufferLength; i++) {
+      barList.push(barLists[i % 3].splice(0, 1));
     }
     avr /= selMusic.bufferLength;
     if(avr > 7) {
@@ -71,8 +87,6 @@ const musicAnimation = () => {
       if(push === 0) particleList.music.bubble.push({size: avr / 8, x: x, y: y, step: Math.random() * 360, alpha: 1});
     }
   }
-
-  const removeList = new Array();
   
   for(let i = 0; i < particleList.music.bubble.length; i++) {
     const par = particleList.music.bubble[i];
@@ -219,6 +233,7 @@ const musicPage = () => {
 
     music.music.load();
     music.music.volume = 0.5;
+    music.audioCtx = null;
 
     music.music.addEventListener("ended", e => {
       lastPlay++;
