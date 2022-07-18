@@ -72,10 +72,11 @@ const musicAnimation = () => {
     }
   }
 
-  let removeList = new Array();
+  const removeList = new Array();
   
-  for(let i = 0; i < particleList.length; i++) {
-    const par = particleList[i];
+  for(let i = 0; i < particleList.music.bubble.length; i++) {
+    const par = particleList.music.bubble[i];
+    if(i == 0) console.log(par);
     if(par.size < 0.1) removeList.unshift(i);
     else if(par.alpha < 0) removeList.unshift(i);
     else {
@@ -91,7 +92,7 @@ const musicAnimation = () => {
   }
 
   for(let i = 0; i < removeList.length; i++) {
-    particleList.splice(i, 1);
+    particleList.music.bubble.splice(i, 1);
   }
   
   for(let i = 0; i < musics.length; i++) {
