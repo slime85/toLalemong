@@ -78,7 +78,8 @@ const musicAnimation = () => {
         }
       }
     }
-    console.log(barLists);
+    console.log(selMusic.dataArray);
+    console.log(JSON.parse(JSON.stringify(barLists)));
     for (let i = 0; i < selMusic.bufferLength; i++) {
       barList.push(barLists[i % 3].splice(0, 1)[0]);
     }
