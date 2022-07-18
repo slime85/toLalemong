@@ -260,7 +260,7 @@ document.addEventListener("mousedown", e => {
     for(let i = 0; i < musicList.length; i++) {
       const music = musicList[i].music;
       let dx = (page.w / 10) + ((page.w - page.w / 5) / 3 * (i + 1)) - ((page.w - page.w / 5) / 3 / 2) - musicCanvas.x;
-      let dy = page.h / 5 * 2;
+      let dy = page.h / 5 * 2.5;
       let time = music.currentTime / music.duration;
       
       let tx = dx + Math.cos(pi * 1.5 * (time)) * (musicCanvas.albumSize * 1.12) / 2;
@@ -334,7 +334,7 @@ document.addEventListener("mouseup", e => {
     if(mouse.dx == mouse.x && mouse.dy == mouse.y) {
       console.log("click");
       for(let i = 0; i < musicList.length; i++) {
-        let r = Math.sqrt(Math.pow(mouse.x - ((page.w / 10) + ((page.w - page.w / 5) / 3 * (i + 1)) - ((page.w - page.w / 5) / 3 / 2) - musicCanvas.x), 2) + Math.pow(mouse.y - (page.h / 10 * 7), 2));
+        let r = Math.sqrt(Math.pow(mouse.x - ((page.w / 10) + ((page.w - page.w / 5) / 3 * (i + 1)) - ((page.w - page.w / 5) / 3 / 2) - musicCanvas.x), 2) + Math.pow(mouse.y - (page.h / 10 * 7.5), 2));
 
         if(r < musicCanvas.playButton) {
           if(musicList[i].music.paused) {
