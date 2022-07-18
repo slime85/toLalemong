@@ -68,7 +68,7 @@ const musicAnimation = () => {
     avr /= selMusic.bufferLength;
     if(avr > 7) {
       let push = Math.round(Math.random() * (256 / avr));
-      if(push === 0) particleList.selMusic.bubble.push({size: avr / 8, x: x, y: y, step: Math.random() * 360, alpha: 1});
+      if(push === 0) particleList.music.bubble.push({size: avr / 8, x: x, y: y, step: Math.random() * 360, alpha: 1});
     }
   }
 
