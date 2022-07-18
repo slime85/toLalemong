@@ -87,6 +87,8 @@ const musicAnimation = () => {
       if(push === 0) particleList.music.bubble.push({size: avr / 8, x: x, y: y, step: Math.random() * 360, alpha: 1});
     }
   }
+
+  console.log(barList);
   
   for(let i = 0; i < particleList.music.bubble.length; i++) {
     const par = particleList.music.bubble[i];
