@@ -76,7 +76,6 @@ const musicAnimation = () => {
   
   for(let i = 0; i < particleList.music.bubble.length; i++) {
     const par = particleList.music.bubble[i];
-    if(i == 0) console.log(par);
     if(par.size < 0.1) removeList.unshift(i);
     else if(par.alpha < 0) removeList.unshift(i);
     else {
@@ -109,7 +108,7 @@ const musicAnimation = () => {
     drwCtx.fill();
     drwCtx.globalCompositeOperation = "source-over";
 
-    drawImage(mpCtx, $drawCanvas, (page.w / 10) + ((page.w - page.w / 5) / 3 * (i + 1)) - ((page.w - page.w / 5) / 3 / 2) - musicCanvas.x, page.h / 5 * 2);
+    drawImage(mpCtx, $drawCanvas, (page.w / 10) + ((page.w - page.w / 5) / 3 * (i + 1)) - ((page.w - page.w / 5) / 3 / 2) - musicCanvas.x, page.h / 5 * 2.5);
   }
     
   for(let i = 0; i < musics.length; i++) {
@@ -161,7 +160,7 @@ const musicAnimation = () => {
 
     musicCanvas.rangeButton = drwCtx.lineWidth * 2.3;
     
-    drawImage(mpCtx, $drawCanvas, (page.w / 10) + ((page.w - page.w / 5) / 3 * (i + 1)) - ((page.w - page.w / 5) / 3 / 2) - musicCanvas.x, page.h / 5 * 2);
+    drawImage(mpCtx, $drawCanvas, (page.w / 10) + ((page.w - page.w / 5) / 3 * (i + 1)) - ((page.w - page.w / 5) / 3 / 2) - musicCanvas.x, page.h / 5 * 2.5);
   }
 
   for(let i = 0; i < musics.length; i++) {
@@ -200,7 +199,7 @@ const musicAnimation = () => {
 
     musicCanvas.playButton = $drawCanvas.width / 9;
 
-    drawImage(mpCtx, $drawCanvas, (page.w / 10) + ((page.w - page.w / 5) / 3 * (i + 1)) - ((page.w - page.w / 5) / 3 / 2) - musicCanvas.x, page.h / 10 * 7);
+    drawImage(mpCtx, $drawCanvas, (page.w / 10) + ((page.w - page.w / 5) / 3 * (i + 1)) - ((page.w - page.w / 5) / 3 / 2) - musicCanvas.x, page.h / 10 * 7.5);
   }
   
   requestAnimationFrame(musicAnimation);
