@@ -54,6 +54,45 @@ const musicAnimation = () => {
 
   if(musicCanvas.x < 0) musicCanvas.x = 0;
   if(musicCanvas.x > max) musicCanvas.x = max;
+
+  const selMusic = musicList[lastPlay];
+
+  if(!selMusic.music.paused) {
+    selMusic.analyser.getByteFrequencyData(selMusic.dataArray);
+    let x = Math.random() * (page.w + selMusic.bufferLength * 2) - selMusic.bufferLength;
+    let y = page.h + selMusic.bufferLength / 10;
+    let avr = 0;
+    for (let i = 0; i < selMusic.bufferLength; i++) {
+      avr += selMusic.dataArray[i];
+    }
+    avr /= selMusic.bufferLength;
+    if(avr > 7) {
+      let push = Math.round(Math.random() * (256 / avr));
+      if(push === 0) particleList.selMusic.bubble.push({size: avr / 8, x: x, y: y, step: Math.random() * 360, alpha: 1});
+    }
+  }
+
+  let removeList = new Array();
+  
+  for(let i = 0; i < particleList.length; i++) {
+    const par = particleList[i];
+    if(par.size < 0.1) removeList.unshift(i);
+    else if(par.alpha < 0) removeList.unshift(i);
+    else {
+      par.y -= 2;
+      par.size -= 0.03;
+      par.alpha -= 0.002;
+      par.step += 2;
+      mpCtx.fillStyle = `rgba(255, 255, 255, ${par.alpha})`;
+      mpCtx.arc(par.x + Math.cos(par.step * pi / 180) * par.size, par.y, par.size, 0, pi * 2);
+      mpCtx.fill();
+      mpCtx.beginPath();
+    }
+  }
+
+  for(let i = 0; i < removeList.length; i++) {
+    particleList.splice(i, 1);
+  }
   
   for(let i = 0; i < musics.length; i++) {
     $drawCanvas.width = album;
@@ -161,23 +200,6 @@ const musicAnimation = () => {
     musicCanvas.playButton = $drawCanvas.width / 9;
 
     drawImage(mpCtx, $drawCanvas, (page.w / 10) + ((page.w - page.w / 5) / 3 * (i + 1)) - ((page.w - page.w / 5) / 3 / 2) - musicCanvas.x, page.h / 10 * 7);
-  }
-
-  const music = musicList[lastPlay];
-
-  if(!music.music.paused) {
-    music.analyser.getByteFrequencyData(music.dataArray);
-    let x = Math.random() * (page.w + music.bufferLength * 2) - music.bufferLength;
-    let y = page.h + music.bufferLength / 10;
-    let avr = 0;
-    for (let i = 0; i < music.bufferLength; i++) {
-      avr += music.dataArray[i];
-    }
-    avr /= music.bufferLength;
-    if(avr > 7) {
-      let push = Math.round(Math.random() * (256 / avr));
-      if(push === 0) particleList.music.bubble.push({size: avr / 8, x: x, y: y, step: Math.random() * 360, alpha: 1});
-    }
   }
   
   requestAnimationFrame(musicAnimation);
