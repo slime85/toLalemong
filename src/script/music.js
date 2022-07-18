@@ -75,6 +75,7 @@ const musicAnimation = () => {
       for(let j = 0; j < 3; j++) {
         if(i <= Math.floor(selMusic.dataArray.length / 3) * (j + 1)) {
           barLists[j].push(selMusic.dataArray[i]);
+          break;
         }
       }
     }
