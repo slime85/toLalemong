@@ -106,7 +106,6 @@ const musicAnimation = () => {
       barList.push((x + z) / 2);
       barList.push(z);
       barList.push((y + z) / 2);
-      barList.push(y);
     }
   }
 
