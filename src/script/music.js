@@ -60,9 +60,9 @@ const musicAnimation = () => {
   if(musicCanvas.x > max) musicCanvas.x = max;
 
   const selMusic = musicList[lastPlay];
-  const barLists = [[], [], []];
-  const barList = [];
   const removeList = [];
+  let barLists = [[], [], []];
+  let barList = [];
 
   if(!selMusic.music.paused) {
     selMusic.analyser.getByteFrequencyData(selMusic.dataArray);
@@ -79,17 +79,43 @@ const musicAnimation = () => {
         }
       }
     }
-    console.log(selMusic.dataArray);
-    console.log(JSON.parse(JSON.stringify(barLists)));
+    // console.log(selMusic.dataArray);
+    // console.log(JSON.parse(JSON.stringify(barLists)));
     for (let i = 0; i < selMusic.bufferLength; i++) {
       barList.push(barLists[i % 3].splice(0, 1)[0]);
     }
-    console.log(barList);
+    // console.log(barList);
     avr /= selMusic.bufferLength;
     if(avr > 7) {
       let push = Math.round(Math.random() * (256 / avr));
       if(push === 0) particleList.music.bubble.push({size: avr / 8, x: x, y: y, step: Math.random() * 360, alpha: 1});
     }
+  }
+
+  barLists = barList;
+  barList = [];
+
+  for(let i = 0; i < barLists.length; i++) {
+    if(i == barLists.length - 1) barList.push(barLists[i]);
+    else {
+      let x = barLists[i];
+      let y = barLists[i + 1];
+      let z = (x + y) / 2;
+
+      barList.push(x);
+      barList.push((x + z) / 2);
+      barList.push(z);
+      barList.push((y + z) / 2);
+      barList.push(y);
+    }
+  }
+
+  console.log(barList);
+  const barWidth = page.w / barList.length;
+
+  for(let i = 0; i < barList.length; i++) {
+    mpCtx.fillStyle = "#fff";
+    mpCtx.fillRect(i * barWidth, 0, barWidth, barList[i]);
   }
 
   for(let i = 0; i < particleList.music.bubble.length; i++) {
