@@ -72,8 +72,8 @@ const musicAnimation = () => {
     for (let i = 0; i < selMusic.bufferLength; i++) {
       avr += selMusic.dataArray[i];
 
-      for(let j = 0; j < 3; j++) {
-        if(i <= Math.floor(selMusic.dataArray.length / 3) * (j + 1)) {
+      for(let j = 0; j < 2; j++) {
+        if(i <= Math.floor(selMusic.dataArray.length / 2) * (j + 1)) {
           barLists[j].push(selMusic.dataArray[i]);
           break;
         }
@@ -82,7 +82,7 @@ const musicAnimation = () => {
     // console.log(selMusic.dataArray);
     // console.log(JSON.parse(JSON.stringify(barLists)));
     for (let i = 0; i < selMusic.bufferLength; i++) {
-      barList.push(barLists[i % 3].splice(0, 1)[0]);
+      barList.push(barLists[i % 2].splice(0, 1)[0]);
     }
     // console.log(barList);
     avr /= selMusic.bufferLength;
