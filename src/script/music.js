@@ -72,8 +72,8 @@ const musicAnimation = () => {
     for (let i = 0; i < selMusic.bufferLength; i++) {
       avr += selMusic.dataArray[i];
 
-      barList.unshift(selMusic.dataArray[selMusic.dataArray - 1 - i]);
-      barList.push(selMusic.dataArray[selMusic.dataArray - 1 - i]);
+      barList.unshift(selMusic.dataArray[selMusic.dataArray.length - 1 - i]);
+      barList.push(selMusic.dataArray[selMusic.dataArray.length - 1 - i]);
     }
 
     avr /= selMusic.bufferLength;
