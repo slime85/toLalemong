@@ -7,6 +7,7 @@ const musicList = [];
 const musicCanvas = {x: 0, playButton: 0, rangeButton: 0, albumSize: 0, downX: 0, prevX: 0, speed: 0};
 let musicFrame = 0;
 let lastPlay = 0;
+let prevBarList = [];
 
 const playMusic = music => {
   if(music.audioCtx == null) {
@@ -72,8 +73,12 @@ const musicAnimation = () => {
     for (let i = 0; i < selMusic.bufferLength; i++) {
       avr += selMusic.dataArray[i];
 
-      barList.unshift(selMusic.dataArray[i]);
-      barList.push(selMusic.dataArray[i]);
+      let bar = selMusic.dataArray[i];
+
+      if(bar < prevBarList[i] - 1) bar = prevBarList[i] - 1;
+
+      barList.unshift(bar);
+      barList.push(bar);
     }
 
     avr /= selMusic.bufferLength;
@@ -83,6 +88,7 @@ const musicAnimation = () => {
     }
   }
 
+  prevBarList = barList;
   barLists = barList;
   barList = [];
 
