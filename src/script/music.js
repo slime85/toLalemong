@@ -100,12 +100,15 @@ const musicAnimation = () => {
     else {
       let x = barLists[i];
       let y = barLists[i + 1];
+
+      if(y < x / 50) y = x / 50;
+      
       let z = (x + y) / 2;
 
       barList.push(x);
-      barList.push((x + z) / 2);
+      barList.push((x + x + z) / 2);
       barList.push(z);
-      barList.push((y + z) / 2);
+      barList.push((y + y + z) / 2);
     }
   }
 
