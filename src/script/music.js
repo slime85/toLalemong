@@ -72,25 +72,27 @@ const musicAnimation = () => {
     for (let i = 0; i < selMusic.bufferLength; i++) {
       avr += selMusic.dataArray[i];
 
-      for(let j = 0; j < 4; j++) {
-        if(i <= Math.floor(selMusic.dataArray.length / 4) * (j + 1)) {
-          barLists[j].push(selMusic.dataArray[i]);
-          break;
-        }
-      }
+      barList.unshift(selMusic.dataArray[i]);
+      barList.push(selMusic.dataArray[i]);
+      // for(let j = 0; j < 4; j++) {
+      //   if(i <= Math.floor(selMusic.dataArray.length / 4) * (j + 1)) {
+      //     barLists[j].push(selMusic.dataArray[i]);
+      //     break;
+      //   }
+      // }
     }
 
-    let dummy = barLists[3];
-    barLists[3] = barLists[1];
-    barLists[1] = dummy;
+    // let dummy = barLists[3];
+    // barLists[3] = barLists[1];
+    // barLists[1] = dummy;
 
     // console.log(selMusic.dataArray);
     // console.log(JSON.parse(JSON.stringify(barLists)));
-    for (let i = 0; i < selMusic.bufferLength; i++) {
-      barList.push(barLists[0].splice(0, 1)[0]);
+    // for (let i = 0; i < selMusic.bufferLength; i++) {
+    //   barList.push(barLists[0].splice(0, 1)[0]);
 
-      if(barLists[0].length == 0) barLists.splice(0, 1);
-    }
+    //   if(barLists[0].length == 0) barLists.splice(0, 1);
+    // }
     // console.log(barList);
     avr /= selMusic.bufferLength;
     if(avr > 7) {
@@ -99,25 +101,25 @@ const musicAnimation = () => {
     }
   }
 
-  barLists = barList;
-  barList = [];
+  // barLists = barList;
+  // barList = [];
 
-  for(let i = 0; i < barLists.length; i++) {
-    if(i == barLists.length - 1) barList.push(barLists[i]);
-    else {
-      let x = barLists[i];
-      let y = barLists[i + 1];
+  // for(let i = 0; i < barLists.length; i++) {
+  //   if(i == barLists.length - 1) barList.push(barLists[i]);
+  //   else {
+  //     let x = barLists[i];
+  //     let y = barLists[i + 1];
 
-      if(y < x / 50) y = x / 50;
+  //     if(y < x / 50) y = x / 50;
 
-      let z = (x + y) / 2;
+  //     let z = (x + y) / 2;
 
-      barList.push(x);
-      barList.push((x + x + z) / 3);
-      barList.push(z);
-      barList.push((y + y + z) / 3);
-    }
-  }
+  //     barList.push(x);
+  //     barList.push((x + x + z) / 3);
+  //     barList.push(z);
+  //     barList.push((y + y + z) / 3);
+  //   }
+  // }
 
   console.log(barList);
   const barWidth = page.w / barList.length;
