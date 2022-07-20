@@ -108,7 +108,7 @@ const musicAnimation = () => {
 
   for(let i = 0; i < barList.length; i++) {
     mpCtx.fillStyle = "#fff";
-    mpCtx.fillRect(i * barWidth, 0, barWidth, barList[i]);
+    mpCtx.fillRect(i * barWidth, 0, barWidth + 1, barList[i]);
   }
 
   for(let i = 0; i < particleList.music.bubble.length; i++) {
@@ -121,7 +121,7 @@ const musicAnimation = () => {
       par.alpha -= 0.002;
       par.step += 2;
       mpCtx.fillStyle = `rgba(255, 255, 255, ${par.alpha})`;
-      mpCtx.arc(par.x + Math.cos(par.step * pi / 180) * par.size - 1, par.y, par.size + 2, 0, pi * 2);
+      mpCtx.arc(par.x + Math.cos(par.step * pi / 180) * par.size, par.y, par.size, 0, pi * 2);
       mpCtx.fill();
       mpCtx.beginPath();
     }
