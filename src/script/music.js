@@ -73,12 +73,8 @@ const musicAnimation = () => {
     for (let i = 0; i < selMusic.bufferLength; i++) {
       avr += selMusic.dataArray[i];
 
-      let bar = selMusic.dataArray[i];
-
-      if(bar < prevBarList[i] - 1) bar = prevBarList[i] - 1;
-
-      barList.unshift(bar);
-      barList.push(bar);
+      barList.unshift(selMusic.dataArray[i]);
+      barList.push(selMusic.dataArray[i]);
     }
 
     avr /= selMusic.bufferLength;
@@ -86,6 +82,10 @@ const musicAnimation = () => {
       let push = Math.round(Math.random() * (256 / avr));
       if(push === 0) particleList.music.bubble.push({size: avr / 8, x: x, y: y, step: Math.random() * 360, alpha: 1});
     }
+  }else {
+    barList = prevBarList;
+    
+    for(let i = 0; i < barList.length; i++) barList[i] -= 0.5;
   }
 
   prevBarList = barList;
