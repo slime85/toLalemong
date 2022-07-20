@@ -85,7 +85,7 @@ const musicAnimation = () => {
   }else {
     barList = prevBarList;
     
-    for(let i = 0; i < barList.length; i++) barList[i] -= 0.5;
+    for(let i = 0; i < barList.length; i++) barList[i] -= 1;
   }
 
   prevBarList = barList;
