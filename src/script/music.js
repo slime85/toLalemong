@@ -61,7 +61,7 @@ const musicAnimation = () => {
 
   const selMusic = musicList[lastPlay];
   const removeList = [];
-  let barLists = [[], [], []];
+  let barLists = [[], [], [], []];
   let barList = [];
 
   if(!selMusic.music.paused) {
@@ -73,16 +73,23 @@ const musicAnimation = () => {
       avr += selMusic.dataArray[i];
 
       for(let j = 0; j < 2; j++) {
-        if(i <= Math.floor(selMusic.dataArray.length / 2) * (j + 1)) {
+        if(i <= Math.floor(selMusic.dataArray.length / 4) * (j + 1)) {
           barLists[j].push(selMusic.dataArray[i]);
           break;
         }
       }
     }
+
+    let dummy = barLists[3];
+    barLists[3] = barLists[1];
+    barLists[1] = dummy;
+
     // console.log(selMusic.dataArray);
     // console.log(JSON.parse(JSON.stringify(barLists)));
     for (let i = 0; i < selMusic.bufferLength; i++) {
-      barList.push(barLists[i % 2].splice(0, 1)[0]);
+      barList.push(barLists[0].splice(0, 1)[0]);
+
+      if(barLists[0].length == 0) barLists.splice(0, 1);
     }
     // console.log(barList);
     avr /= selMusic.bufferLength;
