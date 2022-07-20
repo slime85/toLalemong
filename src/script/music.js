@@ -72,8 +72,8 @@ const musicAnimation = () => {
     for (let i = 0; i < selMusic.bufferLength; i++) {
       avr += selMusic.dataArray[i];
 
-      barList.unshift(selMusic.dataArray[i]);
-      barList.push(selMusic.dataArray[i]);
+      barList.unshift(selMusic.dataArray[selMusic.dataArray - 1 - i]);
+      barList.push(selMusic.dataArray[selMusic.dataArray - 1 - i]);
     }
 
     avr /= selMusic.bufferLength;
@@ -121,7 +121,7 @@ const musicAnimation = () => {
       par.alpha -= 0.002;
       par.step += 2;
       mpCtx.fillStyle = `rgba(255, 255, 255, ${par.alpha})`;
-      mpCtx.arc(par.x + Math.cos(par.step * pi / 180) * par.size, par.y, par.size, 0, pi * 2);
+      mpCtx.arc(par.x + Math.cos(par.step * pi / 180) * par.size, par.y, par.size + 1, 0, pi * 2);
       mpCtx.fill();
       mpCtx.beginPath();
     }
